@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: AppColor.MainWhiteColor,
       appBar: mainAppBar(),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Column(
           children: [
             Material(
@@ -52,13 +53,187 @@ class _HomePageState extends State<HomePage> {
                 width: size.width,
                 height: size.height,
                 color: AppColor.MainWhiteColor,
-
+                child: Stack(
+                  children: [
+                    MainFilter(),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 40.0),
+                      child: ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        itemCount: 3,
+                        itemBuilder: (context, index){
+                          return HotelCard(size);
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Padding HotelCard(Size size) {
+    return Padding(
+                    padding: const EdgeInsets.only(left: 15.0,right: 15.0,top: 10),
+                    child: SizedBox(
+                      width: size.width*1,
+                      height: size.height * 0.350,
+                      child: Card(
+                        color: AppColor.MainWhiteColor,
+                        shadowColor: AppColor.MainBlackColor,
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        semanticContainer: true,
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        child: Stack(
+                          children: [
+                            SizedBox(
+                              width: size.width,
+                                height: size.height / 4.6,
+                                child: Image.asset('images/hotel.jpg', fit: BoxFit.cover,)
+                            ),
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                icon: Icon(CupertinoIcons.heart,
+                                color: AppColor.MainWhiteColor,
+                                ),
+                                onPressed:(){
+                                },
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 15.0, right: 15.0,bottom: 50),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(AppText().hotelName,
+                                    style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                        fontSize: 20
+                                      )
+                                    ),
+                                    ),
+                                    Text(AppText().hotelPrice,
+                                      style: GoogleFonts.poppins(
+                                          textStyle: TextStyle(
+                                              fontSize: 20
+                                    ),
+                                      ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 15.0,bottom: 25,),
+                                  child: Row(
+                                    children: [
+                                      Text(AppText().hotelExplanation,
+                                      style: GoogleFonts.poppins(
+                                        textStyle: TextStyle(
+                                          color: Colors.grey
+                                        )
+                                      ),
+                                      ),
+                                      SizedBox(width: 5,),
+                                      Icon(CupertinoIcons.location_solid,
+                                        color: AppColor.MainColor,
+                                        size: 15.0,),
+                                      SizedBox(width: 5,),
+                                      Text('2.0 km to city /per night',
+                                        style: GoogleFonts.poppins(
+                                            textStyle: TextStyle(
+                                                color: Colors.grey
+                                            ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )),
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 2.0, left: 15.0),
+                                child: Row(
+                                  children: [
+                                    Icon(CupertinoIcons.star_fill,
+                                      size: 20,
+                                      color: AppColor.MainColor,),
+                                    Icon(CupertinoIcons.star_fill,
+                                      size: 20,
+                                      color: AppColor.MainColor,),
+                                    Icon(CupertinoIcons.star_fill,
+                                      size: 20,
+                                      color: AppColor.MainColor,),
+                                    Icon(CupertinoIcons.star_fill,
+                                      size: 20,
+                                      color: AppColor.MainColor,),
+                                    Icon(CupertinoIcons.star_lefthalf_fill,
+                                      size: 20,
+                                      color: AppColor.MainColor,),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text('80 Reviews', style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                        color: Colors.grey
+                                      )
+                                    ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      ),
+                    ),
+                  );
+  }
+
+  Padding MainFilter() {
+    return Padding(
+                    padding: const EdgeInsets.only(left: 15.0, right: 15.0,top: 10.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(AppText().hotelFoundText,
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                            color: AppColor.MainBlackColor,
+                            fontSize: 18,
+                          ),
+                        ),
+                        ),
+                          Row(
+                            children: [
+                              Text('Filter',
+                                style: GoogleFonts.poppins(
+                                  textStyle: TextStyle(
+                                    color: AppColor.MainBlackColor,
+                                    fontSize: 18
+                                  ),
+                              ),
+                              ),
+                              Icon(CupertinoIcons.sort_down, color: AppColor.MainColor, size: 27,),
+                            ],
+                          ),
+
+                      ],
+                    ),
+                  );
   }
 
   Padding mainChoseRoom() {
